@@ -333,8 +333,7 @@ th {
         <button onclick="downloadExcel()">Télécharger Excel</button>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
      <script>
@@ -403,32 +402,32 @@ function searchEntry() {
     }
 }
 
-// Function to download the results as PDF
 function downloadPDF() {
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('p', 'pt', 'a4'); // Defining page size (A4) and orientation
+    const doc = new jsPDF();
+
+    doc.text("La paga de Passation VUMA Fuel Sensor", 10, 10);
 
     const table = document.getElementById("resultsTable");
-    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    const rows = table.getElementsByTagName('tr');
 
-    let y = 40; // Start position in y-axis
-    const rowHeight = 20;
-    const colWidth = [80, 80, 80, 80, 80, 160]; // Adjust widths as needed
+    let y = 20;
 
-    doc.setFontSize(12);
-    doc.text("Results", 40, y - 20);
-
-    // Iterating through table rows
     for (let i = 0; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName('td');
-        for (let j = 0; j < cells.length; j++) {
-            doc.text(cells[j].innerText, 40 + j * colWidth[j], y);
+        const cells = rows[i].getElementsByTagName('th');
+        if (cells.length === 0) {
+            // If there are no headers, then get the cells
+            const cells = rows[i].getElementsByTagName('td');
+            for (let j = 0; j < cells.length; j++) {
+                doc.text(cells[j].innerText, 10 + j * 30, y);
+            }
+        } else {
+            // If headers exist, add headers to PDF
+            for (let j = 0; j < cells.length; j++) {
+                doc.text(cells[j].innerText, 10 + j * 30, y);
+            }
         }
-        y += rowHeight;
-        if (y > 800) { // If exceeding page height, create new page
-            doc.addPage();
-            y = 40;
-        }
+        y += 10;
     }
 
     doc.save('results.pdf');
