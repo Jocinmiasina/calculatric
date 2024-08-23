@@ -1,41 +1,104 @@
-// Récupère les tâches depuis le stockage local lors du chargement de la page
-var addToDoButton = document.getElementById('addToDo');
-var toDoContainer = document.getElementById('toDoContainer');
-var inputField = document.getElementById('inputField');
+  // Function to add an entry to the results table
+function addEntry() {
+    const date = document.getElementById("date").value;
+    const operator = document.getElementById("operator").value;
+    const shift = document.getElementById("shift").value;
+    const entry = document.getElementById("entry").value;
+    const exit = document.getElementById("exit").value;
+    const observations = document.getElementById("observations").value;
 
-addToDoButton.onclick = function(){
-  //verifier si l'input n'est pas vide
-  if(inputField.value != ""){
-    //si l'input n'est pas vide,créer un paragraphe
-    var paragraph = document.createElement('p') 
-  }
-  //valorisé ce paragraphe avec le contenu de l'input
-  paragraph.innerText = inputField.value ;
+    const newEntry = { date, operator, shift, entry, exit, observations };
 
-  //style le paragraphe
-  paragraph.classList.add('paragraphe_style');
+    let entries = JSON.parse(localStorage.getItem('entries')) || [];
+    entries.push(newEntry);
+    localStorage.setItem('entries', JSON.stringify(entries));
 
-  //insérer la paragraphe dans l'element toDoContainer
-  toDoContainer.appendChild(paragraph);
-
-  //vide l'input quand le paragraph est ajoute
-  inputField.value = "";
-
-  //barré la paragraphe quand on clique dessus
-  paragraph.addEventListener('click',function(){
-    paragraph.classList.add('paragraph_click');
-  })
-
-  //suprimé la tâche quand on double click sur le tâche
-  paragraph.addEventListener('dblclick',function(){
-   toDoContainer.removeChild(paragraph);
-})
+    renderEntries();
 }
 
-function result(){
-  let inputField = document.getElementById('inputField');
-  let paragraph = document.getElementById('paragraph');
+// Function to render entries from Local Storage to the table
+function renderEntries() {
+    const table = document.getElementById("resultsTable").getElementsByTagName('tbody')[0];
+    table.innerHTML = ""; // Clear current table content
 
-  sessionStorage.setItem('input',inputField);
-  sessionStorage.getItem('paragraphe',paragraph);
+    let entries = JSON.parse(localStorage.getItem('entries')) || [];
+    entries.forEach((entry, index) => {
+        const newRow = table.insertRow();
+        newRow.insertCell(0).innerText = entry.date;
+        newRow.insertCell(1).innerText = entry.operator;
+        newRow.insertCell(2).innerText = entry.shift;
+        newRow.insertCell(3).innerText = entry.entry;
+        newRow.insertCell(4).innerText = entry.exit;
+        newRow.insertCell(5).innerText = entry.observations;
+
+        // Action button for deletion
+        const actionsCell = newRow.insertCell(6);
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Supprimer";
+        deleteButton.className = "deleteButton.innerText";
+        deleteButton.onclick = () => deleteEntry(index);
+        actionsCell.appendChild(deleteButton);
+    });
 }
+
+// Function to delete an entry
+function deleteEntry(index) {
+    let entries = JSON.parse(localStorage.getItem('entries')) || [];
+    entries.splice(index, 1);
+    localStorage.setItem('entries', JSON.stringify(entries));
+    renderEntries();
+}
+
+// Function to search an entry (simple example)
+function searchEntry() {
+    const operator = document.getElementById("operator").value;
+    const table = document.getElementById("resultsTable").getElementsByTagName('tbody')[0];
+
+    for (let row of table.rows) {
+        if (row.cells[1].innerText === operator) {
+            row.style.backgroundColor = "#FFFF99";
+        } else {
+            row.style.backgroundColor = "";
+        }
+    }
+}
+
+// Function to download the results as PDF
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const table = document.getElementById("resultsTable");
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+    let y = 10;
+    const rowHeight = 10;
+    const colWidth = [40, 40, 40, 40, 40, 60]; // Adjust widths as needed
+
+    doc.text("Results", 10, y);
+    y += rowHeight;
+
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        for (let j = 0; j < cells.length; j++) {
+            doc.text(cells[j].innerText, 10 + j * colWidth[j], y);
+        }
+        y += rowHeight;
+        if (y > 280) { // Check if page limit reached
+            doc.addPage();
+            y = 10;
+        }
+    }
+
+    doc.save('results.pdf');
+}
+
+// Function to download the results as Excel
+function downloadExcel() {
+    const table = document.getElementById("resultsTable");
+    const wb = XLSX.utils.table_to_book(table, { sheet: "Results" });
+    XLSX.writeFile(wb, 'results.xlsx');
+}
+
+// Call renderEntries on page load to display stored entries
+window.onload = renderEntries;
