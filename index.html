@@ -406,27 +406,28 @@ function searchEntry() {
 // Function to download the results as PDF
 function downloadPDF() {
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+    const doc = new jsPDF('p', 'pt', 'a4'); // Defining page size (A4) and orientation
 
     const table = document.getElementById("resultsTable");
     const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
-    let y = 10;
-    const rowHeight = 10;
-    const colWidth = [40, 40, 40, 40, 40, 60]; // Adjust widths as needed
+    let y = 40; // Start position in y-axis
+    const rowHeight = 20;
+    const colWidth = [80, 80, 80, 80, 80, 160]; // Adjust widths as needed
 
-    doc.text("Results", 10, y);
-    y += rowHeight;
+    doc.setFontSize(12);
+    doc.text("Results", 40, y - 20);
 
+    // Iterating through table rows
     for (let i = 0; i < rows.length; i++) {
         const cells = rows[i].getElementsByTagName('td');
         for (let j = 0; j < cells.length; j++) {
-            doc.text(cells[j].innerText, 10 + j * colWidth[j], y);
+            doc.text(cells[j].innerText, 40 + j * colWidth[j], y);
         }
         y += rowHeight;
-        if (y > 280) { // Check if page limit reached
+        if (y > 800) { // If exceeding page height, create new page
             doc.addPage();
-            y = 10;
+            y = 40;
         }
     }
 
