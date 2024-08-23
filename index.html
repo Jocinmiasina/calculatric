@@ -1,22 +1,450 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE-edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Liste de tâches</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La paga_de_Passation_VUMA_Fuel_Sensor</title>
+    <link rel="icon" href="logof.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(to top,rgb(0,0,0,0.7)50%,rgb(0,0,0,0.7)50%),url(logof.jpg);
+    margin: 0;
+    padding: 20px;
+}
+h2 {
+  background-color: transparent;
+  box-shadow: 2px 5px 10px #ffff;
+  text-align: center;
+  color: #fff;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 12px;
+  
+}
+h3 {
+    text-align: center;
+    color: #ffff;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: transparent;
+    box-shadow: 2px 5px 10px #ffff;
+    border-radius: 12px;
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #c3c3c3;
+    border-radius: 8px;
+    border: #0531f8 outset 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/* styles.css */
+
+/* Ny style rehetra efa misy ihany no tavela eto */
+
+/* Min-width amin'ny efijery lehibe */
+/*@media (min-width: 600px) {
+    .container {
+        min-width: 190%;
+    }
+}
+
+/* Min-width amin'ny efijery kely */
+@media (max-width: 600px) {
+    #passationForm {
+        width: 185%;
+    }
+    #resultsTable {
+        width: 185%;
+    }
+    input {
+        width: 10%;
+        margin:0;
+    }
+    .label {
+        width: 10%;
+        margin: 0;  
+    }
+    img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        box-shadow: 2px 5px 5px #a0d0f2;
+        cursor: pointer;
+        position: absolute;
+        top: 100px;
+        right: 320px; 
+    }
+}
+
+.dates {
+    margin-left: 90px;
+    margin-right: 10px;
+    margin-top: 10px;
+    text-align: center;
+    color: #000;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.datess {
+    width: 50%;
+}
+
+.image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px dashed #0531f8;
+    box-shadow: 2px 8px 10px #a0d0f2;
+    cursor: pointer;
+    position: absolute;
+    top: 100px;
+    right: 290px;
+}
+.operators {
+    margin-left: 90px;
+    margin-right: 10px;
+    margin-top: 10px;
+    color: #000;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.shifts {
+    margin-left: 146px;
+    margin-right: 10px;
+    margin-top: 10px;
+    color: #000;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.obseva {
+    margin-top: 20px;
+    color: #000;
+    font-size: 22px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.obsevas {
+    width: 80%;
+    margin-left: 65px;
+    resize: none;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+.labels {
+    margin-left: 90px;
+    margin-right: 8px;
+    margin-top: 15px;
+    text-align: center;
+    color: #000;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.inputs {
+    width: 200px;
+    margin-top: 8px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #0056b3;
+    outline: none;
+    
+}
+input:hover {
+    border:1px solid #0ed0ee;
+    /*background-color: #edf6f8;*/
+    transition: 0.5s;
+    box-shadow: 2px 2px 2px #555;
+    
+}
+textarea:hover {
+    border: 1px solid #0ed0ee;
+    /*background-color: #edf6f8;*/
+    transition: 0.5s;
+    box-shadow: 2px 2px 2px #555;
+}
+.label {
+    display: flex;
+    margin-top: 15px;
+}
+.shift {
+    display: flex;
+}
+
+textarea {
+    height: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+.buttons {
+    text-align: center;
+    
+
+}
+
+.buttons button {
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 19px;
+    font-family: arial bold;
+}
+
+.buttons button:hover {
+    background-color: #0056b3;
+    box-shadow: 5px 5px 20px #9bcef2;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #ffffff;
+    border: 3px solid #0531f8;
+}
+
+table, th, td {
+    border: 1px solid #0531f8;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #0531f8;
+}
+th {
+    padding: 10px;
+    text-align: center;
+    border: 2px solid #0531f8;
+    background-color: #edf6f8;
+}
+
+
+.download-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.download-buttons button {
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    font-size: 19px;
+    font-family: arial bold;
+}
+
+.download-buttons button:hover {
+    background-color: #218838;
+    box-shadow: 5px 5px 20px #9bcef2;
+}
+ .delete-button{
+    background-color: red;
+    padding: 5px 10px;
+ } 
+    </style>
 </head>
 <body>
-<section>
-  <h1>Liste de tâches</h1>
-  <div class="container">
-    <div class="ful_input">
-      <input type="text" placeholder="Ajouter une tâche..." id="inputField"> 
-      <button id="addToDo">+</button>
+    <h2>La paga de Passation VUMA Fuel Sensor</h2>
+    <form id="passationForm">
+        <div class="shift">
+            <label for="date" class="dates">Date:</label>
+            <input type="date" id="date" name="date" class="datess" required>
+        </div>
+
+        <div class="image">
+            <img src="logof.jpg" alt="VUMA">
+        </div>
+        
+        <div class="shift">
+            <label for="operator" class="operators">Opérateur:</label>
+            <select id="operator" name="operator" required>
+                <option value="Janvier Manandahy">Janvier Manandahy</option>
+                <option value="Mahandry">Mahandry</option>
+                <option value="Elios">Elios</option>
+                <option value="Jocin">Jocin</option>
+            </select>
+     
+            <label for="shift" class="shifts">Shift:</label>
+            <select id="shift" name="shift" required>
+                <option value="Day">Day</option>
+                <option value="Night">Night</option>
+            </select>
+        </div>
+        
+        <div class="label">
+            <label for="entry" class="labels">Entrée:</label>
+            <input type="text" id="entry" name="entry" class="inputs"  required>
+
+            <label for="exit" class="labels">Sortie:</label>
+            <input type="text" id="exit" name="exit" class="inputs" required>
+        </div>
+
+        <label for="observations" class="obseva">Observations</label>
+        <textarea id="observations" name="observations" class="obsevas" required></textarea>
+
+        <div class="buttons">
+            <button type="button" onclick="addEntry()">Ajouter</button>
+            <button type="button" onclick="searchEntry()">Rechercher</button>
+        </div>
+    </form>
+
+    <h3>Résultats</h3>
+    <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Opérateur</th>
+                <th>Shift</th>
+                <th>Entrée</th>
+                <th>Sortie</th>
+                <th>Observations</th>
+                <th>Actions</th> <!-- Action Column -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Results will appear here -->
+        </tbody>
+    </table>
+
+    <div class="download-buttons">
+        <button onclick="downloadPDF()">Télécharger PDF</button>
+        <button onclick="downloadExcel()">Télécharger Excel</button>
     </div>
-    <div id="toDoContainer"></div>
-</section>
-  <script src="script.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+     <script>
+        // Function to add an entry to the results table
+function addEntry() {
+    const date = document.getElementById("date").value;
+    const operator = document.getElementById("operator").value;
+    const shift = document.getElementById("shift").value;
+    const entry = document.getElementById("entry").value;
+    const exit = document.getElementById("exit").value;
+    const observations = document.getElementById("observations").value;
+
+    const newEntry = { date, operator, shift, entry, exit, observations };
+
+    let entries = JSON.parse(localStorage.getItem('entries')) || [];
+    entries.push(newEntry);
+    localStorage.setItem('entries', JSON.stringify(entries));
+
+    renderEntries();
+}
+
+// Function to render entries from Local Storage to the table
+function renderEntries() {
+    const table = document.getElementById("resultsTable").getElementsByTagName('tbody')[0];
+    table.innerHTML = ""; // Clear current table content
+
+    let entries = JSON.parse(localStorage.getItem('entries')) || [];
+    entries.forEach((entry, index) => {
+        const newRow = table.insertRow();
+        newRow.insertCell(0).innerText = entry.date;
+        newRow.insertCell(1).innerText = entry.operator;
+        newRow.insertCell(2).innerText = entry.shift;
+        newRow.insertCell(3).innerText = entry.entry;
+        newRow.insertCell(4).innerText = entry.exit;
+        newRow.insertCell(5).innerText = entry.observations;
+
+        // Action button for deletion
+        const actionsCell = newRow.insertCell(6);
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Supprimer";
+        deleteButton.className = "deleteButton.innerText";
+        deleteButton.onclick = () => deleteEntry(index);
+        actionsCell.appendChild(deleteButton);
+    });
+}
+
+// Function to delete an entry
+function deleteEntry(index) {
+    let entries = JSON.parse(localStorage.getItem('entries')) || [];
+    entries.splice(index, 1);
+    localStorage.setItem('entries', JSON.stringify(entries));
+    renderEntries();
+}
+
+// Function to search an entry (simple example)
+function searchEntry() {
+    const operator = document.getElementById("operator").value;
+    const table = document.getElementById("resultsTable").getElementsByTagName('tbody')[0];
+
+    for (let row of table.rows) {
+        if (row.cells[1].innerText === operator) {
+            row.style.backgroundColor = "#FFFF99";
+        } else {
+            row.style.backgroundColor = "";
+        }
+    }
+}
+
+// Function to download the results as PDF
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const table = document.getElementById("resultsTable");
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+    let y = 10;
+    const rowHeight = 10;
+    const colWidth = [40, 40, 40, 40, 40, 60]; // Adjust widths as needed
+
+    doc.text("Results", 10, y);
+    y += rowHeight;
+
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        for (let j = 0; j < cells.length; j++) {
+            doc.text(cells[j].innerText, 10 + j * colWidth[j], y);
+        }
+        y += rowHeight;
+        if (y > 280) { // Check if page limit reached
+            doc.addPage();
+            y = 10;
+        }
+    }
+
+    doc.save('results.pdf');
+}
+
+// Function to download the results as Excel
+function downloadExcel() {
+    const table = document.getElementById("resultsTable");
+    const wb = XLSX.utils.table_to_book(table, { sheet: "Results" });
+    XLSX.writeFile(wb, 'results.xlsx');
+}
+
+// Call renderEntries on page load to display stored entries
+window.onload = renderEntries;
+
+     </script>
 </body>
 </html>
+
+    
